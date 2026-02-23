@@ -15,6 +15,7 @@ LVR_TOKEN = "<|lvr|>"
 LVR_LATENT_END_TOKEN="<|lvr_latent_end|>"
 LVR_PLACEHOLDER="<lvr>"
 
+
 SYSTEM_MESSAGE = "You are a helpful assistant."
 
 LVR_SYSTEM_MESSAGE = "Put your final answer in <answer> </answer>."
