@@ -1,0 +1,785 @@
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+[2026-02-13 10:38:54,714] [WARNING] [runner.py:232:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+[2026-02-13 10:38:54,715] [INFO] [runner.py:630:main] cmd = /home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMCwgMSwgMiwgMywgNCwgNSwgNiwgN119 --master_addr=127.0.0.1 --master_port=29500 --enable_each_rank_log=None --log_level=info src/train/train_lvr.py --run_name Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128 --coconut True --loss_lvr_fct mse --deepspeed scripts/zero2_offload.json --model_id Qwen/Qwen2.5-VL-7B-Instruct --data_path /home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json --remove_unused_columns False --lvr_head False --freeze_vision_tower True --freeze_merger True --freeze_llm False --max_steps 2500 --learning_rate 1e-5 --loss_lvr_lambda 0.1 --bf16 True --fp16 False --disable_flash_attn2 True --online_checkpoint False --output_dir /home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/ --num_train_epochs 1 --per_device_train_batch_size 1 --gradient_accumulation_steps 8 --image_min_pixels 100352 --image_max_pixels 4014080 --weight_decay 0.1 --warmup_ratio 0.03 --lr_scheduler_type cosine --logging_steps 1 --tf32 False --gradient_checkpointing True --report_to wandb --lazy_preprocess True --save_strategy steps --save_steps 500 --save_total_limit 5 --dataloader_num_workers 8 --enable_data_packing True --max_packed_tokens 16384 --random_seed 42 --long_seq_threshold 4096 --max_instance_per_batch 4
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+[2026-02-13 10:39:06,810] [INFO] [launch.py:162:main] WORLD INFO DICT: {'localhost': [0, 1, 2, 3, 4, 5, 6, 7]}
+[2026-02-13 10:39:06,810] [INFO] [launch.py:168:main] nnodes=1, num_local_procs=8, node_rank=0
+[2026-02-13 10:39:06,810] [INFO] [launch.py:179:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0, 1, 2, 3, 4, 5, 6, 7]})
+[2026-02-13 10:39:06,810] [INFO] [launch.py:180:main] dist_world_size=8
+[2026-02-13 10:39:06,810] [INFO] [launch.py:184:main] Setting ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+[2026-02-13 10:39:06,812] [INFO] [launch.py:272:main] process 1791232 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=0', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,813] [INFO] [launch.py:272:main] process 1791233 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=1', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,814] [INFO] [launch.py:272:main] process 1791234 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=2', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,815] [INFO] [launch.py:272:main] process 1791235 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=3', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,816] [INFO] [launch.py:272:main] process 1791236 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=4', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,817] [INFO] [launch.py:272:main] process 1791237 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=5', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,819] [INFO] [launch.py:272:main] process 1791238 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=6', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+[2026-02-13 10:39:06,820] [INFO] [launch.py:272:main] process 1791239 spawned with command: ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=7', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4']
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/contrib/transfer_to_npu.py:298: ImportWarning: 
+    *************************************************************************************************************
+    The torch.Tensor.cuda and torch.nn.Module.cuda are replaced with torch.Tensor.npu and torch.nn.Module.npu now..
+    The torch.cuda.DoubleTensor is replaced with torch.npu.FloatTensor cause the double type is not supported now..
+    The backend in torch.distributed.init_process_group set to hccl now..
+    The torch.cuda.* and torch.cuda.amp.* are replaced with torch.npu.* and torch.npu.amp.* now..
+    The device parameters have been replaced with npu in the function below:
+    torch.logspace, torch.randint, torch.hann_window, torch.rand, torch.full_like, torch.ones_like, torch.rand_like, torch.randperm, torch.arange, torch.frombuffer, torch.normal, torch._empty_per_channel_affine_quantized, torch.empty_strided, torch.empty_like, torch.scalar_tensor, torch.tril_indices, torch.bartlett_window, torch.ones, torch.sparse_coo_tensor, torch.randn, torch.kaiser_window, torch.tensor, torch.triu_indices, torch.as_tensor, torch.zeros, torch.randint_like, torch.full, torch.eye, torch._sparse_csr_tensor_unsafe, torch.empty, torch._sparse_coo_tensor_unsafe, torch.blackman_window, torch.zeros_like, torch.range, torch.sparse_csr_tensor, torch.randn_like, torch.from_file, torch._cudnn_init_dropout_state, torch._empty_affine_quantized, torch.linspace, torch.hamming_window, torch.empty_quantized, torch._pin_memory, torch.autocast, torch.load, torch.set_default_device, torch.Tensor.new_empty, torch.Tensor.new_empty_strided, torch.Tensor.new_full, torch.Tensor.new_ones, torch.Tensor.new_tensor, torch.Tensor.new_zeros, torch.Tensor.to, torch.Tensor.pin_memory, torch.nn.Module.to, torch.nn.Module.to_empty
+    *************************************************************************************************************
+    
+  warnings.warn(msg, ImportWarning)
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/contrib/transfer_to_npu.py:255: RuntimeWarning: torch.jit.script and torch.jit.script_method will be disabled by transfer_to_npu, which currently does not support them, if you need to enable them, please do not use transfer_to_npu.
+  warnings.warn(msg, RuntimeWarning)
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/latest owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/utils/collect_env.py:58: UserWarning: Warning: The /usr/local/Ascend/ascend-toolkit/8.2.RC1/aarch64-linux/ascend_toolkit_install.info owner does not match the current owner.
+  warnings.warn(f"Warning: The {path} owner does not match the current owner.")
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/8.2.RC1/python/site-packages/tbe/tvm/contrib/ccec.py:866: DeprecationWarning: invalid escape sequence '\L'
+  if not dirpath.find("AppData\Local\Temp"):
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/classifier/transdata/transdata_classifier.py:222: DeprecationWarning: invalid escape sequence '\B'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+/usr/local/Ascend/ascend-toolkit/latest/python/site-packages/tbe/dsl/unify_schedule/vector/transdata/common/graph/transdata_graph_info.py:143: DeprecationWarning: invalid escape sequence '\c'
+  """
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]##########################################
+Activated naive LVR without head mode!!!
+##########################################
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:01,  2.59it/s]Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:01,  3.99it/s]Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]##########################################
+Activated naive LVR without head mode!!!
+##########################################
+Loading checkpoint shards:  60%|████████████████████████████████████████▊                           | 3/5 [00:00<00:00,  8.74it/s]Loading checkpoint shards:  60%|████████████████████████████████████████▊                           | 3/5 [00:00<00:00,  6.19it/s]Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:00,  4.31it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  7.84it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 10.64it/s]
+
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+Loading checkpoint shards:  80%|██████████████████████████████████████████████████████▍             | 4/5 [00:00<00:00, 12.57it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 13.68it/s]
+Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:01,  3.58it/s]Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  60%|████████████████████████████████████████▊                           | 3/5 [00:00<00:00,  9.01it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 11.23it/s]
+Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:00,  4.24it/s]Loading checkpoint shards:  80%|██████████████████████████████████████████████████████▍             | 4/5 [00:00<00:00, 12.38it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 13.46it/s]
+Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:00,  4.05it/s]Loading checkpoint shards:  80%|██████████████████████████████████████████████████████▍             | 4/5 [00:00<00:00, 11.86it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 12.89it/s]
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+##########################################
+Activated naive LVR without head mode!!!
+##########################################
+Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:   0%|                                                                            | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:01,  3.83it/s]Loading checkpoint shards:  80%|██████████████████████████████████████████████████████▍             | 4/5 [00:00<00:00, 11.53it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 12.47it/s]
+Loading checkpoint shards:  20%|█████████████▌                                                      | 1/5 [00:00<00:01,  3.55it/s]Loading checkpoint shards:  80%|██████████████████████████████████████████████████████▍             | 4/5 [00:00<00:00, 10.76it/s]Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00, 11.62it/s]
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+You have video processor config saved in `preprocessor.json` file which is deprecated. Video processor configs should be saved in their own `video_preprocessor.json` file. You can rename the file or load and save the processor back which renames it automatically. Loading from `preprocessor.json` will be removed in v5.0.
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json' mode='r' encoding='UTF-8'>
+  meta_data = json.load(open(data_args.data_path))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+Detected kernel version 4.19.90, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_363k_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+/home/ma-user/work/lbx/lvr-main/src/dataset/lvr_sft_dataset_packed.py:133: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/ma-user/work/lbx/dataset/lvr_viscot/viscot_sroie_dude_lvr_formatted.json' mode='r' encoding='UTF-8'>
+  self.raw_data = json.load(open(data_path, "r"))
+##########################################
+Training with datasets and their weights:
+viscot:	0.9680610751389976
+viscot_dlc:	0.03193892486100232
+##########################################
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank2]:     subprocess.run(
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank2]:     raise CalledProcessError(retcode, process.args,
+[rank2]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank2]: The above exception was the direct cause of the following exception:
+
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank2]:     train()
+[rank2]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank2]:     trainer.train()
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank2]:     return inner_training_loop(
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank2]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank2]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank2]:     result = self._prepare_deepspeed(*args)
+[rank2]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank2]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank2]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank2]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank2]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank2]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank2]:     return self.jit_load(verbose)
+[rank2]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank2]:     op_module = load(name=self.name,
+[rank2]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank2]:     return _jit_compile(
+[rank2]:            ^^^^^^^^^^^^^
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank2]:     _write_ninja_file_and_build_library(
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank2]:     _run_ninja_build(
+[rank2]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank2]:     raise RuntimeError(message) from e
+[rank2]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank2]: FAILED: [code=1] cpu_adam_impl.o 
+[rank2]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank2]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank2]: compilation terminated.
+[rank2]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank2]: FAILED: [code=1] cpu_adam.o 
+[rank2]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank2]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank2]: compilation terminated.
+[rank2]: ninja: build stopped: subcommand failed.
+
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank1]:     subprocess.run(
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank1]:     raise CalledProcessError(retcode, process.args,
+[rank1]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank1]: The above exception was the direct cause of the following exception:
+
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank1]:     train()
+[rank1]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank1]:     trainer.train()
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank1]:     return inner_training_loop(
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank1]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank1]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank1]:     result = self._prepare_deepspeed(*args)
+[rank1]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank1]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank1]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank1]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank1]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank1]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank1]:     return self.jit_load(verbose)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank1]:     op_module = load(name=self.name,
+[rank1]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank1]:     return _jit_compile(
+[rank1]:            ^^^^^^^^^^^^^
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank1]:     _write_ninja_file_and_build_library(
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank1]:     _run_ninja_build(
+[rank1]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank1]:     raise RuntimeError(message) from e
+[rank1]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank1]: FAILED: [code=1] cpu_adam.o 
+[rank1]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank1]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank1]: compilation terminated.
+[rank1]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank1]: FAILED: [code=1] cpu_adam_impl.o 
+[rank1]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank1]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank1]: compilation terminated.
+[rank1]: ninja: build stopped: subcommand failed.
+
+Gradient accumulation steps mismatch: GradientAccumulationPlugin has 1, DeepSpeed config has 8. Using DeepSpeed's value.
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank4]:     subprocess.run(
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank4]:     raise CalledProcessError(retcode, process.args,
+[rank4]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank4]: The above exception was the direct cause of the following exception:
+
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank4]:     train()
+[rank4]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank4]:     trainer.train()
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank4]:     return inner_training_loop(
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank4]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank4]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank4]:     result = self._prepare_deepspeed(*args)
+[rank4]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank4]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank4]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank4]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank4]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank4]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank4]:     return self.jit_load(verbose)
+[rank4]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank4]:     op_module = load(name=self.name,
+[rank4]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank4]:     return _jit_compile(
+[rank4]:            ^^^^^^^^^^^^^
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank4]:     _write_ninja_file_and_build_library(
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank4]:     _run_ninja_build(
+[rank4]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank4]:     raise RuntimeError(message) from e
+[rank4]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank4]: FAILED: [code=1] cpu_adam.o 
+[rank4]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank4]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank4]: compilation terminated.
+[rank4]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank4]: FAILED: [code=1] cpu_adam_impl.o 
+[rank4]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank4]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank4]: compilation terminated.
+[rank4]: ninja: build stopped: subcommand failed.
+
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank5]:     subprocess.run(
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank5]:     raise CalledProcessError(retcode, process.args,
+[rank5]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank5]: The above exception was the direct cause of the following exception:
+
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank5]:     train()
+[rank5]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank5]:     trainer.train()
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank5]:     return inner_training_loop(
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank5]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank5]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank5]:     result = self._prepare_deepspeed(*args)
+[rank5]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank5]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank5]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank5]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank5]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank5]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank5]:     return self.jit_load(verbose)
+[rank5]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank5]:     op_module = load(name=self.name,
+[rank5]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank5]:     return _jit_compile(
+[rank5]:            ^^^^^^^^^^^^^
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank5]:     _write_ninja_file_and_build_library(
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank5]:     _run_ninja_build(
+[rank5]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank5]:     raise RuntimeError(message) from e
+[rank5]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank5]: FAILED: [code=1] cpu_adam.o 
+[rank5]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank5]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank5]: compilation terminated.
+[rank5]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank5]: FAILED: [code=1] cpu_adam_impl.o 
+[rank5]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank5]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank5]: compilation terminated.
+[rank5]: ninja: build stopped: subcommand failed.
+
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank6]:     train()
+[rank6]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank6]:     trainer.train()
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank6]:     return inner_training_loop(
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank6]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank6]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank6]:     result = self._prepare_deepspeed(*args)
+[rank6]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank6]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank6]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank6]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank6]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank6]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank6]:     return self.jit_load(verbose)
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank6]:     op_module = load(name=self.name,
+[rank6]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank6]:     return _jit_compile(
+[rank6]:            ^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1823, in _jit_compile
+[rank6]:     return _import_module_from_library(name, build_directory, is_python_module)
+[rank6]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2245, in _import_module_from_library
+[rank6]:     module = importlib.util.module_from_spec(spec)
+[rank6]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank6]:   File "<frozen importlib._bootstrap>", line 573, in module_from_spec
+[rank6]:   File "<frozen importlib._bootstrap_external>", line 1233, in create_module
+[rank6]:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+[rank6]: ImportError: /home/ma-user/.cache/torch_extensions/py311_cpu/cpu_adam/cpu_adam.so: cannot open shared object file: No such file or directory
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank3]:     subprocess.run(
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank3]:     raise CalledProcessError(retcode, process.args,
+[rank3]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank3]: The above exception was the direct cause of the following exception:
+
+[rank3]: Traceback (most recent call last):
+[rank3]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank3]:     train()
+[rank3]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank3]:     trainer.train()
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank3]:     return inner_training_loop(
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank3]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank3]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank3]:     result = self._prepare_deepspeed(*args)
+[rank3]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank3]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank3]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank3]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank3]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank3]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank3]:     return self.jit_load(verbose)
+[rank3]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank3]:     op_module = load(name=self.name,
+[rank3]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank3]:     return _jit_compile(
+[rank3]:            ^^^^^^^^^^^^^
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank3]:     _write_ninja_file_and_build_library(
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank3]:     _run_ninja_build(
+[rank3]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank3]:     raise RuntimeError(message) from e
+[rank3]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank3]: FAILED: [code=1] cpu_adam.o 
+[rank3]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank3]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank3]: compilation terminated.
+[rank3]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank3]: FAILED: [code=1] cpu_adam_impl.o 
+[rank3]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank3]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank3]: compilation terminated.
+[rank3]: ninja: build stopped: subcommand failed.
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank0]:     train()
+[rank0]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank0]:     return inner_training_loop(
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank0]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank0]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank0]:     result = self._prepare_deepspeed(*args)
+[rank0]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank0]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank0]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank0]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank0]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank0]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank0]:     return self.jit_load(verbose)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank0]:     op_module = load(name=self.name,
+[rank0]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank0]:     return _jit_compile(
+[rank0]:            ^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1823, in _jit_compile
+[rank0]:     return _import_module_from_library(name, build_directory, is_python_module)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2245, in _import_module_from_library
+[rank0]:     module = importlib.util.module_from_spec(spec)
+[rank0]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "<frozen importlib._bootstrap>", line 573, in module_from_spec
+[rank0]:   File "<frozen importlib._bootstrap_external>", line 1233, in create_module
+[rank0]:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+[rank0]: ImportError: /home/ma-user/.cache/torch_extensions/py311_cpu/cpu_adam/cpu_adam.so: cannot open shared object file: No such file or directory
+[ERROR] 2026-02-13-10:40:03 (PID:1791233, Device:1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:03 (PID:1791237, Device:5, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:03 (PID:1791236, Device:4, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:03 (PID:1791234, Device:2, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:03 (PID:1791238, Device:6, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:04 (PID:1791232, Device:0, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[ERROR] 2026-02-13-10:40:04 (PID:1791235, Device:3, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2209, in _run_ninja_build
+[rank7]:     subprocess.run(
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/subprocess.py", line 571, in run
+[rank7]:     raise CalledProcessError(retcode, process.args,
+[rank7]: subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+[rank7]: The above exception was the direct cause of the following exception:
+
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 259, in <module>
+[rank7]:     train()
+[rank7]:   File "/home/ma-user/work/lbx/lvr-main/src/train/train_lvr.py", line 248, in train
+[rank7]:     trainer.train()
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2237, in train
+[rank7]:     return inner_training_loop(
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/transformers/trainer.py", line 2392, in _inner_training_loop
+[rank7]:     model, self.optimizer = self.accelerator.prepare(self.model, self.optimizer)
+[rank7]:                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 1551, in prepare
+[rank7]:     result = self._prepare_deepspeed(*args)
+[rank7]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/accelerator.py", line 2328, in _prepare_deepspeed
+[rank7]:     optimizer = map_pytorch_optim_to_deepspeed(optimizer)
+[rank7]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/accelerate/utils/deepspeed.py", line 97, in map_pytorch_optim_to_deepspeed
+[rank7]:     return optimizer_class(optimizer.param_groups, **defaults)
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 94, in __init__
+[rank7]:     self.ds_opt_adam = CPUAdamBuilder().load()
+[rank7]:                        ^^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 542, in load
+[rank7]:     return self.jit_load(verbose)
+[rank7]:            ^^^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/op_builder/builder.py", line 592, in jit_load
+[rank7]:     op_module = load(name=self.name,
+[rank7]:                 ^^^^^^^^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1380, in load
+[rank7]:     return _jit_compile(
+[rank7]:            ^^^^^^^^^^^^^
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1798, in _jit_compile
+[rank7]:     _write_ninja_file_and_build_library(
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 1926, in _write_ninja_file_and_build_library
+[rank7]:     _run_ninja_build(
+[rank7]:   File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/utils/cpp_extension.py", line 2225, in _run_ninja_build
+[rank7]:     raise RuntimeError(message) from e
+[rank7]: RuntimeError: Error building extension 'cpu_adam': [1/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank7]: FAILED: [code=1] cpu_adam.o 
+[rank7]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam.cpp -o cpu_adam.o 
+[rank7]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank7]: compilation terminated.
+[rank7]: [2/3] /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank7]: FAILED: [code=1] cpu_adam_impl.o 
+[rank7]: /home/ma-user/anaconda3/envs/lvr_offload/bin/x86_64-conda-linux-gnu-c++ -MMD -MF cpu_adam_impl.o.d -DTORCH_EXTENSION_NAME=cpu_adam -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -I/usr/local/Ascend/ascend-toolkit/latest/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/include -I/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/includes -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/TH -isystem /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch/include/THC -isystem /home/ma-user/anaconda3/envs/lvr_offload/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -O3 -std=c++17 -g -Wno-reorder -fopenmp -fstack-protector-all -Wl,-z,relro,-z,now,-z,noexecstack -Wl,--disable-new-dtags,--rpath -D__ENABLE_CANN__ -march=native -D__SCALAR__ -L/usr/local/Ascend/ascend-toolkit/latest/lib64 -L/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/torch_npu/lib -UC10_USE_GLOG -c /home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/csrc/adam/cpu_adam_impl.cpp -o cpu_adam_impl.o 
+[rank7]: x86_64-conda-linux-gnu-c++: fatal error: unknown spec function 'local_cpu_detect'
+[rank7]: compilation terminated.
+[rank7]: ninja: build stopped: subcommand failed.
+
+[ERROR] 2026-02-13-10:40:06 (PID:1791239, Device:7, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffce9fbd620>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+    self.ds_opt_adam.destroy_adam(self.opt_id)
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcea8f8ea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+    self.ds_opt_adam.destroy_adam(self.opt_id)
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcd8b2cea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcc24ccea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffce9234ea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcd6f3cea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcf2b18ea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+Exception ignored in: <function DeepSpeedCPUAdam.__del__ at 0xfffcd8090ea0>
+Traceback (most recent call last):
+  File "/home/ma-user/anaconda3/envs/lvr_offload/lib/python3.11/site-packages/deepspeed/ops/adam/cpu_adam.py", line 102, in __del__
+AttributeError: 'DeepSpeedCPUAdam' object has no attribute 'ds_opt_adam'
+[2026-02-13 10:40:14,832] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791232
+[2026-02-13 10:40:14,833] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791233
+[2026-02-13 10:40:15,612] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791234
+[2026-02-13 10:40:16,386] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791235
+[2026-02-13 10:40:17,466] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791236
+[2026-02-13 10:40:17,469] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791237
+[2026-02-13 10:40:17,471] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791238
+[2026-02-13 10:40:17,473] [INFO] [launch.py:335:sigkill_handler] Killing subprocess 1791239
+[2026-02-13 10:40:18,552] [ERROR] [launch.py:341:sigkill_handler] ['/home/ma-user/anaconda3/envs/lvr_offload/bin/python3.1', '-u', 'src/train/train_lvr.py', '--local_rank=7', '--run_name', 'Stage1_mseLVRLossLambda0.1-MaxVisToken5120-MinVisToken128', '--coconut', 'True', '--loss_lvr_fct', 'mse', '--deepspeed', 'scripts/zero2_offload.json', '--model_id', 'Qwen/Qwen2.5-VL-7B-Instruct', '--data_path', '/home/ma-user/work/lbx/dataset/lvr_viscot/meta_data_lvr_sft_stage1.json', '--remove_unused_columns', 'False', '--lvr_head', 'False', '--freeze_vision_tower', 'True', '--freeze_merger', 'True', '--freeze_llm', 'False', '--max_steps', '2500', '--learning_rate', '1e-5', '--loss_lvr_lambda', '0.1', '--bf16', 'True', '--fp16', 'False', '--disable_flash_attn2', 'True', '--online_checkpoint', 'False', '--output_dir', '/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/', '--num_train_epochs', '1', '--per_device_train_batch_size', '1', '--gradient_accumulation_steps', '8', '--image_min_pixels', '100352', '--image_max_pixels', '4014080', '--weight_decay', '0.1', '--warmup_ratio', '0.03', '--lr_scheduler_type', 'cosine', '--logging_steps', '1', '--tf32', 'False', '--gradient_checkpointing', 'True', '--report_to', 'wandb', '--lazy_preprocess', 'True', '--save_strategy', 'steps', '--save_steps', '500', '--save_total_limit', '5', '--dataloader_num_workers', '8', '--enable_data_packing', 'True', '--max_packed_tokens', '16384', '--random_seed', '42', '--long_seq_threshold', '4096', '--max_instance_per_batch', '4'] exits with return code = 1
