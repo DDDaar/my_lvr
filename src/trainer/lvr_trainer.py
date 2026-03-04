@@ -15,6 +15,7 @@ from transformers.trainer import (
 
 from transformers.pytorch_utils import ALL_LAYERNORM_LAYERS
 
+#用于处理 DeepSpeed ZeRO-3 优化器下的参数收集：如果参数被 ZeRO-3 分区，先收集（gather）参数，将参数移到 CPU 并克隆，避免引用问题
 def maybe_zero_3(param, ignore_status=False, name=None):
     from deepspeed import zero
     from deepspeed.runtime.zero.partition_parameters import ZeroParamStatus
@@ -50,7 +51,10 @@ class QwenLVRSFTTrainer(Trainer):
 
         opt_model = self.model
 
+        # 识别不同模块的参数，分别创建优化器
+        #优化器分组策略：对每个模块分别创建带权重衰减和不带权重衰减的参数组。每个模块可以设置独立的 learning rate，支持 Adam8bit 优化器，对 Embedding 层使用 32-bit 精度
         if self.optimizer is None:
+            #确定了哪些参数需要进行权重衰减。它排除了所有的 LayerNorm 层和所有包含 "bias" 字样的参数。
             decay_parameters = get_parameter_names(opt_model, ALL_LAYERNORM_LAYERS)
             decay_parameters = [name for name in decay_parameters if "bias" not in name]
             lr_mapper = {}
@@ -70,7 +74,8 @@ class QwenLVRSFTTrainer(Trainer):
 
             if len(lr_mapper) > 0:
                 special_lr_parameters = merger_parameters + visual_parameters + lvr_head_parameters
-                
+
+                # 分组：视觉模块、merger模块、lvrhead模块、非特殊模块（分别是否衰减）
                 optimizer_grouped_parameters = [
                     {
                         "params": [p for n, p in opt_model.named_parameters() if (n in decay_parameters and n not in special_lr_parameters and p.requires_grad)],
@@ -150,6 +155,7 @@ class QwenLVRSFTTrainer(Trainer):
 
                 skipped = 0
                 for module in opt_model.modules():
+                    #8-bit优化器，对embedding层仍然使用32bit
                     if isinstance(module, nn.Embedding):
                         skipped += sum({p.data_ptr(): p.numel() for p in module.parameters()}.values())
                         logger.info(f"skipped {module}: {skipped/2**20}M params")
@@ -158,7 +164,8 @@ class QwenLVRSFTTrainer(Trainer):
                 logger.info(f"skipped: {skipped/2**20}M params")
 
         return self.optimizer
-    
+
+#在本地保存检查点，上传到云端存储，清理本地临时文件以节省空间，管理检查点轮换（删除旧检查点）
     def _save_checkpoint(self, model, trial):
         # In all cases, including ddp/dp/deepspeed, self.model is always a reference to the model we
         # want to save except FullyShardedDDP.
@@ -238,6 +245,7 @@ class QwenLVRSFTTrainer(Trainer):
         loss_lvr = outputs.loss_lvr
         loss_mode_switch = outputs.loss_mode_switch
 
+        #celoss、lvrloss、switchloss
         if self.args.mode_switch_loss:
             loss = loss_ce + self.args.loss_lvr_lambda * loss_lvr + self.args.loss_mode_switch_lambda * loss_mode_switch
         else:

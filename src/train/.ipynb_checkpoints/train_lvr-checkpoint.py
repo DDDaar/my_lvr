@@ -39,6 +39,7 @@ def set_requires_grad(parameters, requires_grad):
     for p in parameters:
         p.requires_grad = requires_grad
 
+# 视觉部分dtype、grad设置
 def configure_vision_tower(model, training_args, compute_dtype, device):
     vision_tower = model.visual
     vision_tower.to(dtype=compute_dtype, device=device)
@@ -50,6 +51,7 @@ def configure_vision_tower(model, training_args, compute_dtype, device):
     merger_params = model.visual.merger.parameters()
     set_requires_grad(merger_params, not training_args.freeze_merger)
 
+# llm部分dtype、grad设置
 def configure_llm(model, training_args):
     lm_head = model.lm_head.parameters()
     set_requires_grad(lm_head, not training_args.freeze_llm)
@@ -119,9 +121,11 @@ def train():
             model_pth = training_args.checkpoint_name
     # if its starting a new training
     else:
+        # 这里是加载的instruct模型
         model_pth = model_args.model_id
     
     # get the model config
+    # 设置lvrhead、head的type
     config = AutoConfig.from_pretrained(model_pth,trust_remote_code=True)
     config.latent_end_token = model_args.latent_end_token
     config.lvr_head = model_args.lvr_head
@@ -129,7 +133,7 @@ def train():
     
     # Load model based on model type
     if "Qwen2.5" in model_args.model_id:
-        # Patch the forward function
+        # Patch the forward function，加入lvrhead、coconut、latent_end_token
         replace_qwen2_5_with_mixed_modality_forward_lvr(coconut=model_args.coconut,
                                                         lvr_head=model_args.lvr_head,
                                                         mode_switch_loss=training_args.mode_switch_loss,
@@ -147,6 +151,7 @@ def train():
             model._init_lvr_head(lvr_head_type =  model_args.lvr_head_type)
         
         # init latent_end_token
+        #初始化 LVR 专有组件
         if model_args.latent_end_token:
             model._init_lvr_latent_end_emb()
             model.config.loss_mode_switch_fct = training_args.loss_mode_switch_fct
@@ -158,6 +163,7 @@ def train():
     else:
         raise("Unsupported model type. At this moment, we only support Qwen2.5LM-based Qwen2.5VL series and InternVL3 series.")
 
+    # kvcache
     model.config.use_cache = False
     model_to_configure = model
     configure_llm(model_to_configure, training_args)
@@ -172,13 +178,14 @@ def train():
     #     return output
     # model.model.visual.patch_embed.register_forward_hook(output_nan_sanitizer_hook)
 
+    #保即使你冻结了模型的前几层，输入层依然能接收并传递梯度
     if training_args.gradient_checkpointing:
         model.enable_input_require_grads()
         training_args.gradient_checkpointing_kwargs = {"use_reentrant": True}
 
     # configure processors and special tokens
     processor = AutoProcessor.from_pretrained(model_args.model_id,min_pixels=data_args.image_min_pixels,max_pixels=data_args.image_max_pixels)
-
+    #将这些新添加的 Token ID 存入 model.config
     processor.tokenizer.add_tokens("<|lvr_start|>",special_tokens=True)
     processor.tokenizer.add_tokens("<|lvr|>",special_tokens=True)
     processor.tokenizer.add_tokens("<|lvr_latent_end|>",special_tokens=True)
@@ -196,10 +203,11 @@ def train():
 
 
     # there are some dummy tokens in newer hf version
+    # 词表尺寸重置
     if model.config.vocab_size < len(processor.tokenizer):
         model.resize_token_embeddings(len(processor.tokenizer))
 
-    # configure lvr loss type
+    # configure lvr loss type，实际使用的mse
     model.config.loss_lvr_fct = training_args.loss_lvr_fct
 
 
@@ -208,6 +216,7 @@ def train():
         use data packing for faster training due to the random input lengths of LVR
     '''
     # model.config.tokenizer_model_max_length = processor.tokenizer.model_max_length
+    # packing与否
     if training_args.enable_data_packing:
         training_args.per_device_train_batch_size = 1
         if model_args.max_lvr_tokens is not None:
@@ -236,6 +245,7 @@ def train():
                                               latent_end_token=model_args.latent_end_token)
     
     # tempFolder = temp_file class; "/dockerx/Local/users/bangzheng/model_name/run_name-[random]"
+    # 训练、保存
     trainer = QwenLVRSFTTrainer(
         model=model,
         processing_class=processor,

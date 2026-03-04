@@ -41,7 +41,7 @@ STEP_LIST = [4,8,16]
 # ==== Config ====
 
 
-CHKPT_PATHS = ["/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/checkpoint-2500",]
+CHKPT_PATHS = ["/home/ma-user/work/lbx/lvr-main/7b_sft_smooth_cos_ckpt2500",]
 # DATASET_CONFIG = {
 #     'blink': {
 #         "loader": lambda gen_w_head,run_name,decoding_strategy: load_blink_dataset(gen_w_head,run_name,decoding_strategy),

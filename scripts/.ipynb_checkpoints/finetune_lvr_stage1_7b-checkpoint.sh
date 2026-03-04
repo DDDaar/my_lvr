@@ -250,8 +250,8 @@ GRAD_ACCUM_STEPS=16
 LR=1e-5
 LVR_HEAD=False
 
-# LVR-related params
-LVR_LOSS_FCT=mse
+# LVR-related params,mse为原始方法
+LVR_LOSS_FCT=smooth_cos
 LAMBDA_LVR=0.1
 
 ##################### 原本是5120

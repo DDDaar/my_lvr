@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 from torch.nn import LayerNorm
 
+#就是简单的mlp head和GLUhead
+
 class LVRHead(nn.Module):
     """
         The simplest mlp w/o up_proj

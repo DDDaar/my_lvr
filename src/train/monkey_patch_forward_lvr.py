@@ -38,7 +38,8 @@ def replace_qwen2_5_with_mixed_modality_forward_lvr(inference_mode=False,
                                                     mode_switch_loss=False,
                                                     latent_end_token=False,
                                                     rl = False):
-    
+    #一旦这行代码运行，后续所有通过 Qwen2_5_VLForConditionalGeneration.from_pretrained() 创建的模型，其 forward 方法都不再是官方原始版本，而是你指定的“魔改版”。
+    # 实际使用的，coconut为真，不使用lvrhead
     print("#"*42)
     if inference_mode:
         if lvr_head:
@@ -109,6 +110,14 @@ def  set_lvr_loss_fct(loss_lvr_fct: str):
         def cosine_loss(x, y):
             return 1 - F.cosine_similarity(x, y, dim=-1).mean()
         return cosine_loss
+    elif loss_lvr_fct == 'smooth_cos':
+        print('当前使smooth_cos损失函数对齐embedding')
+        def smooth_cos_loss(x, y, alpha=1.0, beta=1.0):
+            # beta 越小，越早切换为 L1 Loss
+            smooth_l1 = F.smooth_l1_loss(x, y, beta=0.1) 
+            cos = 1 - F.cosine_similarity(x, y, dim=-1).mean()
+            return alpha * smooth_l1 + beta * cos
+        return smooth_cos_loss
     else:
         raise ValueError(f"Unsupported lvr_loss: {loss_lvr_fct}")
 
@@ -1639,6 +1648,8 @@ def qwen2_5_mixed_modality_forward_lvr_with_head_with_latentEndToken(
     Coconut mode
     LVR Head
     Padded <LVR_end> latent token as the mode switching signal
+    ###用的大概率是这个
+    
 '''
 def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
     self,
@@ -1663,14 +1674,15 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
     lvr_mode_switch: Optional[torch.Tensor] = None, # This is for INFERENCE: Which instance in the batch is in lvr mode
     last_position_hidden_state: Optional[torch.FloatTensor] = None, # This is for INFERENCE: last hidden state of the last position
 ) -> Union[Tuple, Qwen2_5_VLCausalLMOutputWithPast]:
-    
+
+    #输出什么内容、什么格式
     output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
     output_hidden_states = (
         output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
     )
     return_dict = return_dict if return_dict is not None else self.config.use_return_dict
     
-
+    #得到输入的embedding
     if inputs_embeds is None:
         inputs_embeds = self.model.get_input_embeddings()(input_ids)
 
@@ -1678,12 +1690,15 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         only happen during inference 
         inputs_embeds in shape (bs, seq_len, hidden)
     '''
+    #推理的时候将上一个最后的隐藏层输入
     if lvr_mode_switch:
         # in fact, each instance's seq_len will be 1 in inference
         inputs_embeds[lvr_mode_switch,-1,:] = last_position_hidden_state[lvr_mode_switch]
     
     ''' Only necessary in training '''
     # Pass dummy image and dummy grid to the visual model to avoid deepspeed error.
+    # dummy，但由于值是0，不会影响实际embedding
+    # 这样可以避免纯文本batch时的deepspeed错误
     if not lvr_mode_switch and (pixel_values is None and pixel_values_videos is None):
         # Create dummy pixel_values and grid_thw for avoiding deepspeed error.
         dummy_pixel = torch.zeros(784, 1176).to(self.model.visual.device)
@@ -1701,6 +1716,7 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         # with torch.autocast(device_type='cuda', enabled=True, dtype=torch.float32):
         #     # Ensure vision tower inputs are float32
         #     pixel_values = pixel_values.to(torch.float32) 
+        ## 获取图像特征
         image_embeds = self.model.get_image_features(pixel_values, image_grid_thw)
         image_embeds = torch.cat(image_embeds, dim=0)
 
@@ -1712,6 +1728,7 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
                 f"Image features and image tokens do not match: tokens: {n_image_tokens}, features {n_image_features}"
             )
 
+        ## 创建图像token的mask
         if input_ids is None:
             image_mask = inputs_embeds == self.get_input_embeddings()(
                 torch.tensor(self.config.image_token_id, dtype=torch.long, device=inputs_embeds.device)
@@ -1720,7 +1737,7 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         else:
             image_mask = input_ids == self.config.image_token_id
 
-
+        # 将图像特征替换到对应
         n_image_tokens = (image_mask).sum()
         image_mask_unsqueeze = image_mask.unsqueeze(-1).expand_as(inputs_embeds).to(inputs_embeds.device)
         n_image_features = image_embeds.shape[0]
@@ -1737,32 +1754,38 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
                 Filling the lvr tokens with image embeddings.
                 Applicable when each image input has multiple bboxes
             '''
+            ## 计算每个实例的视觉token数量
             total_tokens = torch.sum(image_mask, dim=1)   # 1d tensor([216, 234, 234, 234]) for #vis_tokens in each instance in batch
             batch_size = input_ids.size(0) 
             # lvr mask for lvr token locations in the batch, [bs, seq_length]
-            # in each instance, lvr tokens are True, others are False
+            # in each instance, lvr tokens are True, others are False，# 创建LVR token的mask
+
             lvr_mask = input_ids == self.config.lvr_id  
             # Total length = number of <lvr> tokens in the batch
             # seq_positions: flattend LOCAL positions of lvr tokens in the inputs_ids
+            ## 获取LVR token的batch索引和序列位置
             batch_indices, seq_positions = torch.nonzero(lvr_mask, as_tuple=True)  
 
         #  GLOBAL starting index in `image_embeds` of each image in the batch
+        ## 计算每个图像在image_embeds中的全局起始索引
+        ## 在序列开头添加一个0
             image_token_offsets = torch.cumsum(
                 F.pad(total_tokens, (1, 0)), dim=0
-            )[:-1]  # shape [B], offset into image_embeds for each batch element
+            )[:-1]  # shape [B], offset into image_embeds for each batch element，得到每一个样本的起始位置
 
             global_lvr_token_indices = []
 
+            # 将每一个样本的相对位置转化为packing后的全局位置
             for b, lvr_ids in enumerate(lvr_tokens):
                 # Convert local to global index
                 offset = image_token_offsets[b].item()
                 global_lvr_token_indices.append(lvr_ids + offset)
             global_lvr_token_indices = torch.cat(global_lvr_token_indices, dim=0)  # [L_total]
 
-            # Step 3: Gather the selected visual embeddings
+            # Step 3: Gather the selected visual embeddings # 收集选中的视觉嵌入
             selected_lvr_embeds = image_embeds[global_lvr_token_indices]  # [L_total, H]
 
-            # Step 4: Replace in input_embeds at the right batch and position
+            # Step 4: Replace in input_embeds at the right batch and position 在输入的embedding替换
             inputs_embeds[batch_indices, seq_positions] = selected_lvr_embeds
 
             '''Apply lvr_latent_end_token'''
@@ -1820,9 +1843,11 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         return_dict=return_dict,
         cache_position=cache_position,
     )
-
+    #最后一层的隐藏状态
     hidden_states = outputs[0]
+    #最后一层最后一个位置的隐藏状态
     last_position_hidden_state = outputs.last_hidden_state[:,-1,:]
+    #logits计算（全部位置）
     logits = self.lm_head(hidden_states)
 
     lvr_loss_fct = set_lvr_loss_fct(self.config.loss_lvr_fct)
@@ -1841,7 +1866,7 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         loss_fct = CrossEntropyLoss()
         shift_logits = shift_logits.view(-1, self.config.vocab_size)
         shift_labels = shift_labels.view(-1)
-        # Don't want CE loss for <lvr> token
+        # Don't want CE loss for <lvr> token，文本损失 (Loss CE)：屏蔽思考 Token
         shift_labels = shift_labels.masked_fill((shift_labels == self.config.lvr_id)|(shift_labels == self.config.lvr_latent_end_id), IGNORE_INDEX)
 
         # Enable model parallelism
@@ -1861,6 +1886,7 @@ def qwen2_5_mixed_modality_forward_lvr_with_latentEndToken(
         selected_lvr_embeds_latentend = self.lvr_latent_end_emb.unsqueeze(0).expand_as(selected_hidden_states_latentend).to(torch.float32)
         selected_lvr_embeds_latentend = selected_lvr_embeds_latentend.to(selected_hidden_states_latentend.device)
         # Compute LVR loss between predicted and inserted lvr embeddings
+        #强迫模型内部的隐藏状态直接对齐真实的图像特征向量
         loss_lvr = lvr_loss_fct(selected_hidden_states, selected_lvr_embeds) 
         loss_mode_switch = mode_switch_loss_fct(selected_hidden_states_latentend, selected_lvr_embeds_latentend)
 

@@ -19,7 +19,7 @@ from src.constants import (
 
 )
 
-
+#把llava格式的占位符替换为qwen的格式
 def replace_image_tokens(input_string, is_video=False):
     if is_video:
         pattern = r'\n?' + re.escape(LLAVA_VIDEO_TOKEN) + r'\n?'
@@ -30,6 +30,7 @@ def replace_image_tokens(input_string, is_video=False):
 
     return re.sub(pattern, replacement, input_string)
 
+#把lvr占位符替换为LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN（当前配置）
 def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_num_of_lvr_tokens):
     '''video not implemented'''
     pattern = r'\n?' + re.escape(LVR_PLACEHOLDER) + r'\n?'
@@ -42,6 +43,8 @@ def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_n
                 replacement = LVR_START_TOKEN + LVR_TOKEN*fixed_num_of_lvr_tokens + LVR_END_TOKEN
                 output_segments.append(replacement+seg)
         else:
+            #根据实际token索引列表的长度确定token数量
+            #根据latent_end_token标志决定是否添加LVR_LATENT_END_TOKEN
             for seg,idxs in zip(input_segments,lvr_token_idxs_list):
                 if latent_end_token is not None:    #latent end token mode will append a stopping token as the last
                     replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
@@ -53,7 +56,7 @@ def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_n
         return input_string
 
 
-
+# 将LLaVA对话格式转换为OpenAI格式，并处理LVR（Latent Visual Representation）tokens的替换
 def llava_to_openai_lvr(conversations, is_video=False, lvr_token_idxs_list=None, latent_end_token=False, fixed_num_of_lvr_tokens=None):
 
     # assert lvr_token_idxs_list is not None
@@ -86,7 +89,7 @@ def llava_to_openai(conversations, is_video=False):
 
     return transformed_data
 
-
+#截断逻辑
 def truncate_sequence(input_ids, labels, max_length, eos_token_id):
     if input_ids.size(0) > max_length:
         input_ids = input_ids[:max_length-1]
@@ -98,6 +101,7 @@ def truncate_sequence(input_ids, labels, max_length, eos_token_id):
 
     return input_ids, labels
 
+#padding
 def pad_sequence(sequences, padding_side='right', padding_value=0):
     """
     Pad a list of sequences to the same length.
@@ -117,6 +121,7 @@ def pad_sequence(sequences, padding_side='right', padding_value=0):
             output.data[i, -length:] = seq
     return output
 
+# 图像信息处理，将图像参数包装成标准格式
 def get_image_info(image_path, min_pixel, max_pixel, width, height):
     # Using this because of process_vision_info function
     # Need to fix this in the future
