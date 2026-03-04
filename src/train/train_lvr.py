@@ -130,6 +130,15 @@ def train():
     config.latent_end_token = model_args.latent_end_token
     config.lvr_head = model_args.lvr_head
     config.lvr_head_type = model_args.lvr_head_type
+
+    #适配token压缩
+    config.enable_lvr_token_compression = model_args.enable_lvr_token_compression
+    config.lvr_compress_tokens = model_args.lvr_compress_tokens
+    config.lvr_compressor_num_heads = model_args.lvr_compressor_num_heads
+    config.lvr_compressor_num_layers = model_args.lvr_compressor_num_layers
+    config.lvr_compressor_dropout = model_args.lvr_compressor_dropout
+
+
     
     # Load model based on model type
     if "Qwen2.5" in model_args.model_id:
@@ -225,13 +234,16 @@ def train():
                                                                                             max_lvr_tokens=model_args.max_lvr_tokens,
                                                                                             data_args=data_args,
                                                                                             training_args=training_args,
-                                                                                            latent_end_token=model_args.latent_end_token)
+                                                                                            latent_end_token=model_args.latent_end_token,
+                                                                                            lvr_compress_tokens=model_args.lvr_compress_tokens if model_args.enable_lvr_token_compression else None)        
         else:
             data_module, total_data_len = make_packed_supervised_data_module_lvr(model_id=model_args.model_id,
                                                                                 processor=processor,
                                                                                 data_args=data_args,
                                                                                 training_args=training_args,
-                                                                                latent_end_token=model_args.latent_end_token)
+                                                                                latent_end_token=model_args.latent_end_token,
+                                                                                lvr_compress_tokens=model_args.lvr_compress_tokens if model_args.enable_lvr_token_compression else None
+                                                                                )
         if not training_args.max_steps:
             training_args.max_steps = total_data_len // (training_args.gradient_accumulation_steps 
                                                          * training_args.world_size

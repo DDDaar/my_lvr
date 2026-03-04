@@ -31,7 +31,7 @@ def replace_image_tokens(input_string, is_video=False):
     return re.sub(pattern, replacement, input_string)
 
 #把lvr占位符替换为LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN（当前配置）
-def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_num_of_lvr_tokens):
+def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_num_of_lvr_tokens,lvr_compress_tokens=None):
     '''video not implemented'''
     pattern = r'\n?' + re.escape(LVR_PLACEHOLDER) + r'\n?'
     if re.search(pattern, input_string):
@@ -45,12 +45,24 @@ def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_n
         else:
             #根据实际token索引列表的长度确定token数量
             #根据latent_end_token标志决定是否添加LVR_LATENT_END_TOKEN
-            for seg,idxs in zip(input_segments,lvr_token_idxs_list):
+            # for seg,idxs in zip(input_segments,lvr_token_idxs_list):#########################################################################
+            #     if latent_end_token is not None:    #latent end token mode will append a stopping token as the last
+            #         replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
+            #     else:
+            #         replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN
+            #     output_segments.append(replacement+seg)
+            if lvr_compress_tokens is not None:
+                num_lvr = lvr_compress_tokens
+            else:
+                num_lvr = len(idxs)
+            
+            for seg,idxs in zip(input_segments,lvr_token_idxs_list):#########################################################################
                 if latent_end_token is not None:    #latent end token mode will append a stopping token as the last
-                    replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
+                    replacement = LVR_START_TOKEN + LVR_TOKEN*num_lvr + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
                 else:
-                    replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN
+                    replacement = LVR_START_TOKEN + LVR_TOKEN*num_lvr + LVR_END_TOKEN
                 output_segments.append(replacement+seg)
+     
         return "".join(output_segments)
     else:
         return input_string

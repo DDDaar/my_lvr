@@ -232,25 +232,50 @@ def qwen2_5_mixed_modality_forward_lvr(
             # seq_positions: flattend LOCAL positions of lvr tokens in the inputs_ids
             batch_indices, seq_positions = torch.nonzero(lvr_mask, as_tuple=True)  
 
-            if isinstance(lvr_tokens,list):
-                '''Exrtacting tokens from original image'''
-                #  GLOBAL starting index in `image_embeds` of each image in the batch
-                image_token_offsets = torch.cumsum(
-                    F.pad(total_tokens, (1, 0)), dim=0
-                )[:-1]  # shape [B], offset into image_embeds for each batch element
+            # if isinstance(lvr_tokens,list):
+            #     '''Exrtacting tokens from original image'''
+            #     #  GLOBAL starting index in `image_embeds` of each image in the batch
+            #     image_token_offsets = torch.cumsum(
+            #         F.pad(total_tokens, (1, 0)), dim=0
+            #     )[:-1]  # shape [B], offset into image_embeds for each batch element
 
-                global_lvr_token_indices = []
+            #     global_lvr_token_indices = []
 
-                for b, lvr_ids in enumerate(lvr_tokens):
-                    # Convert local to global index
-                    offset = image_token_offsets[b].item()
-                    global_lvr_token_indices.append(lvr_ids + offset)
-                global_lvr_token_indices = torch.cat(global_lvr_token_indices, dim=0)  # [L_total]
+            #     for b, lvr_ids in enumerate(lvr_tokens):
+            #         # Convert local to global index
+            #         offset = image_token_offsets[b].item()
+            #         global_lvr_token_indices.append(lvr_ids + offset)
+            #     global_lvr_token_indices = torch.cat(global_lvr_token_indices, dim=0)  # [L_total]
 
-                # Step 3: Gather the selected visual embeddings
-                selected_lvr_embeds = image_embeds[global_lvr_token_indices]  # [L_total, H]
+            #     # Step 3: Gather the selected visual embeddings
+            #     selected_lvr_embeds = image_embeds[global_lvr_token_indices]  # [L_total, H]
 
-                # Step 4: Replace in input_embeds at the right batch and position
+            #     # Step 4: Replace in input_embeds at the right batch and position
+            #     inputs_embeds[batch_indices, seq_positions] = selected_lvr_embeds
+            if isinstance(lvr_tokens, list):
+                image_token_offsets = torch.cumsum(F.pad(total_tokens, (1, 0)), dim=0)[:-1]
+            
+                group_embeds = []
+                for b, local_ids in enumerate(lvr_tokens):
+                    # local_ids: ROI local token idx, shape [Ni]
+                    local_ids = local_ids.to(device=image_embeds.device, dtype=torch.long)
+                    global_ids = local_ids + image_token_offsets[b].item()
+                    roi_embeds = image_embeds[global_ids]  # [Ni, H]
+            
+                    if getattr(self.config, "enable_lvr_token_compression", False):
+                        # [1, K, H] -> [K, H]
+                        compressed = self.lvr_token_compressor(roi_embeds).squeeze(0)
+                        group_embeds.append(compressed)
+                    else:
+                        group_embeds.append(roi_embeds)
+            
+                selected_lvr_embeds = torch.cat(group_embeds, dim=0)  # [L_total, H]
+                if selected_lvr_embeds.size(0) != seq_positions.numel():
+                    raise ValueError(
+                        f"LVR length mismatch after compression: embeds={selected_lvr_embeds.size(0)}, "
+                        f"lvr_positions={seq_positions.numel()}"
+                    )
+            
                 inputs_embeds[batch_indices, seq_positions] = selected_lvr_embeds
             else:
                 '''re-encode target area'''

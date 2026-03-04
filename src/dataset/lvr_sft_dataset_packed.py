@@ -53,7 +53,7 @@ def get_rank():
     return dist.get_rank()
 
   
-def make_packed_supervised_data_module_lvr(model_id, processor, data_args, training_args: TrainingArguments,latent_end_token=False):
+def make_packed_supervised_data_module_lvr(model_id, processor, data_args, training_args: TrainingArguments,latent_end_token=False, lvr_compress_tokens=None):
 
     """Make dataset and collator for supervised fine-tuning."""
 
@@ -77,7 +77,8 @@ def make_packed_supervised_data_module_lvr(model_id, processor, data_args, train
             data_world_size=data_world_size,
             distributed_mode = training_args.enable_data_packing,    # set for packed dataset
             random_seed=data_args.random_seed,
-            latent_end_token=latent_end_token
+            latent_end_token=latent_end_token,
+            lvr_compress_tokens=lvr_compress_tokens
         )
         datasets.append(iterable_sft_dataset)
         total_data_len += len(iterable_sft_dataset)
@@ -127,6 +128,7 @@ class IterableSupervisedDatasetLVR(Dataset):
         distributed_mode = True,    # set for packed dataset
         random_seed=None,
         latent_end_token=False,
+        lvr_compress_tokens=None
     ):
         super().__init__()
         if isinstance(data_path, str):
@@ -164,6 +166,9 @@ class IterableSupervisedDatasetLVR(Dataset):
 
         # int latent_end_token mode, a latent end token wil be appended to the selected lvr tokens
         self.latent_end_token = latent_end_token
+
+        self.lvr_compress_tokens = lvr_compress_tokens
+        
 
     def __len__(self):
         return len(self.raw_data)
@@ -264,7 +269,7 @@ class IterableSupervisedDatasetLVR(Dataset):
             image_grid_thw = processor(text=[""], images=images, videos=videos, padding=False, do_resize=False, return_tensors='pt')['image_grid_thw']
             lvr_token_idxs_list = self.bbox_to_token_idxs(sources['bboxes'],image_grid_thw)
 
-            sources = copy.deepcopy(llava_to_openai_lvr(sources['conversations'], is_video=is_video,lvr_token_idxs_list=lvr_token_idxs_list,latent_end_token=self.latent_end_token))
+            sources = copy.deepcopy(llava_to_openai_lvr(sources['conversations'], is_video=is_video,lvr_token_idxs_list=lvr_token_idxs_list,latent_end_token=self.latent_end_token,lvr_compress_tokens=self.lvr_compress_tokens,))
 
             all_input_ids = [] 
             all_labels = []

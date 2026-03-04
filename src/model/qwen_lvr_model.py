@@ -1,6 +1,8 @@
 """
     Implementation of LVR models based on Qwen-2.5-VL series
 """
+from src.model.lvr_token_compressor import LVRTokenCompressor
+
 import math
 import torch.nn as nn
 import torch
@@ -64,7 +66,28 @@ class QwenWithLVR(Qwen2_5_VLForConditionalGeneration):
             self._init_lvr_head(config.lvr_head_type)
         if config.latent_end_token:
             self._init_lvr_latent_end_emb()
-        
+
+        if getattr(config, "enable_lvr_token_compression", False):
+            self._init_lvr_token_compressor(
+                num_queries=config.lvr_compress_tokens,
+                num_heads=config.lvr_compressor_num_heads,
+                num_layers=config.lvr_compressor_num_layers,
+                dropout=config.lvr_compressor_dropout,
+            )
+
+       #3. 新增初始化函数：
+
+    def _init_lvr_token_compressor(self, num_queries=8, num_heads=8, num_layers=1, dropout=0.0):
+        # num_layers 先保留接口，v1 用 1 层；你后续可堆叠
+        self.lvr_token_compressor = LVRTokenCompressor(
+            hidden_size=self.config.hidden_size,
+            num_queries=num_queries,
+            num_heads=num_heads,
+            dropout=dropout,
+        )
+
+   
+            
     def _init_lvr_head(self,lvr_head_type):
         print(f"Detected LVR Head Type: '{lvr_head_type}'")
         if lvr_head_type == 'simple':

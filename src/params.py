@@ -15,6 +15,19 @@ class ModelArguments:
     lvr_head_type: str = field(default="simple")
     latent_end_token: bool = field(default=False)
     max_lvr_tokens: int = field(default=None)
+    ### 文件 A: src/params.py
+    enable_lvr_token_compression: bool = field(default=False)
+    lvr_compress_tokens: int = field(default=8)# K
+    lvr_compressor_num_heads: int = field(default=8)
+    lvr_compressor_num_layers: int = field(default=1)
+    lvr_compressor_dropout: float = field(default=0.0)
+
+  # 说明：
+
+  # - 默认 False 可兼容旧配置/旧checkpoint。
+  # - 开启时 K=8 是起始建议。
+
+  # ———
 
 
 @dataclass
