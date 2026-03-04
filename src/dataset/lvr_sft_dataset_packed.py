@@ -628,27 +628,39 @@ class PackedDataset(IterableDataset):
                 cut_id = min(max_tokens, buffer['input_ids'].size(0))
 
                 if not _image_is_splitted(buffer['input_ids'], cut_id):
-                    # count discarded lvr tokens before slicing
-
+                    # Count discarded LVR markers before slicing.
+                    # In compressed mode, token count in `lvr_tokens` no longer equals marker count,
+                    # so we only keep/drop whole LVR groups conservatively.
+                    num_discarded_lvr_tokens = 0
+                    num_kept_lvr_tokens = 0
                     if lvr_token_id is not None:
-                        num_discarded_lvr_tokens = (buffer['input_ids'][cut_id:] == lvr_token_id).sum().item()
-                        cut_id_lvr = buffer['lvr_tokens'][0].size(0)-num_discarded_lvr_tokens
-                    
-                    for k in buffer:
-                        if k in ['input_ids', 'labels', 'attention_mask', 'position_ids', 'data_index']:
-                            buffer[k] = buffer[k][:cut_id]
-                        elif k in ['pixel_values', 'image_flags','image_grid_thw']:
-                            buffer[k] = buffer[k]
-                        elif k in ['lvr_tokens']:
-                            buffer[k][0] = buffer[k][0][:cut_id_lvr]
-                        elif k in ['input_lengths']:
-                            pass
-                        else:
-                            raise NotImplementedError(f'find unsupported keys: {k} from {buffer.keys()}')
-                    # re-assign lengths
-                    buffer['input_lengths'][0] = buffer['input_ids'].size(0)
-                    buffer_ready = [buffer]
-                    buffer_unready = []
+                        num_discarded_lvr_tokens = int((buffer['input_ids'][cut_id:] == lvr_token_id).sum().item())
+                        num_kept_lvr_tokens = int((buffer['input_ids'][:cut_id] == lvr_token_id).sum().item())
+
+                    # If we cut through an LVR region (some kept + some discarded), mapping becomes ambiguous.
+                    # Drop this overlong sample to prevent input_ids/lvr_tokens desync.
+                    if num_discarded_lvr_tokens > 0 and num_kept_lvr_tokens > 0:
+                        buffer_ready = []
+                        buffer_unready = []
+                    else:
+                        for k in buffer:
+                            if k in ['input_ids', 'labels', 'attention_mask', 'position_ids', 'data_index']:
+                                buffer[k] = buffer[k][:cut_id]
+                            elif k in ['pixel_values', 'image_flags', 'image_grid_thw']:
+                                buffer[k] = buffer[k]
+                            elif k in ['lvr_tokens']:
+                                if num_kept_lvr_tokens == 0:
+                                    buffer[k] = []
+                                else:
+                                    buffer[k] = buffer[k]
+                            elif k in ['input_lengths']:
+                                pass
+                            else:
+                                raise NotImplementedError(f'find unsupported keys: {k} from {buffer.keys()}')
+                        # re-assign lengths
+                        buffer['input_lengths'][0] = buffer['input_ids'].size(0)
+                        buffer_ready = [buffer]
+                        buffer_unready = []
                 else:   # if image is getting cut, discard the overlong instance
                     buffer_ready = []
                     buffer_unready = []

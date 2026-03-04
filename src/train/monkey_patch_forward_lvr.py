@@ -268,22 +268,48 @@ def qwen2_5_mixed_modality_forward_lvr(
                 total_before = 0
                 total_after = 0
                 for b, local_ids in enumerate(lvr_tokens):
+                    if b >= batch_size:
+                        raise ValueError(
+                            f"LVR token group mismatch: groups={len(lvr_tokens)}, batch_size={batch_size}"
+                        )
                     # local_ids: ROI local token idx, shape [Ni]
                     local_ids = local_ids.to(device=image_embeds.device, dtype=torch.long)
+                    if local_ids.numel() == 0:
+                        continue
                     total_before += int(local_ids.numel())
                     global_ids = local_ids + image_token_offsets[b].item()
                     roi_embeds = image_embeds[global_ids]  # [Ni, H]
+                    expected_lvr_positions = int(lvr_mask[b].sum().item())
+                    if expected_lvr_positions == 0:
+                        continue
             
                     if getattr(self.config, "enable_lvr_token_compression", False):
                         # [1, K, H] -> [K, H]
                         compressed = self.lvr_token_compressor(roi_embeds).squeeze(0)
+                        if compressed.size(0) > expected_lvr_positions:
+                            compressed = compressed[:expected_lvr_positions]
+                        elif compressed.size(0) < expected_lvr_positions:
+                            raise ValueError(
+                                f"LVR compressed length smaller than token positions: "
+                                f"compressed={compressed.size(0)}, lvr_positions={expected_lvr_positions}"
+                            )
                         group_embeds.append(compressed)
                         total_after += int(compressed.size(0))
                     else:
+                        if roi_embeds.size(0) > expected_lvr_positions:
+                            roi_embeds = roi_embeds[:expected_lvr_positions]
+                        elif roi_embeds.size(0) < expected_lvr_positions:
+                            raise ValueError(
+                                f"LVR raw length smaller than token positions: "
+                                f"raw={roi_embeds.size(0)}, lvr_positions={expected_lvr_positions}"
+                            )
                         group_embeds.append(roi_embeds)
                         total_after += int(roi_embeds.size(0))
             
-                selected_lvr_embeds = torch.cat(group_embeds, dim=0)  # [L_total, H]
+                if group_embeds:
+                    selected_lvr_embeds = torch.cat(group_embeds, dim=0)  # [L_total, H]
+                else:
+                    selected_lvr_embeds = image_embeds.new_empty((0, image_embeds.size(-1)))
                 if selected_lvr_embeds.size(0) != seq_positions.numel():
                     raise ValueError(
                         f"LVR length mismatch after compression: embeds={selected_lvr_embeds.size(0)}, "
