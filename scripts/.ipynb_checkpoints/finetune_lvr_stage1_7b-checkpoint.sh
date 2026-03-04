@@ -204,12 +204,12 @@
 
 
 
-
 ##### 不pack似乎有bug，暂时pack。8卡，最大instance变为1，所以grad累积变成16
 #!/bin/bash
 
 # model configs
-MODEL_NAME="Qwen/Qwen2.5-VL-7B-Instruct"
+# MODEL_NAME="Qwen/Qwen2.5-VL-7B-Instruct"
+MODEL_NAME="/home/ma-user/work/lbx/models/Qwen2.5-VL-7B-Instruct"
 export WANDB_PROJECT="LVR-Qwen25-VL-7B-SFT-STAGE-1-450k"
 
 mkdir -p /home/ma-user/lbx/lvr-main/training_cache
@@ -251,7 +251,7 @@ LR=1e-5
 LVR_HEAD=False
 
 # LVR-related params,mse为原始方法
-LVR_LOSS_FCT=smooth_cos
+LVR_LOSS_FCT=mse
 LAMBDA_LVR=0.1
 
 ##################### 原本是5120

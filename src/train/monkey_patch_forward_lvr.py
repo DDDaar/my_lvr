@@ -308,8 +308,17 @@ def qwen2_5_mixed_modality_forward_lvr(
             
                 if group_embeds:
                     selected_lvr_embeds = torch.cat(group_embeds, dim=0)  # [L_total, H]
-                else:
-                    selected_lvr_embeds = image_embeds.new_empty((0, image_embeds.size(-1)))
+                else:                                                                                                     
+                    selected_lvr_embeds = image_embeds.new_empty((0, image_embeds.size(-1)))                              
+                    # ↓↓↓ 在这里插入 ↓↓↓                                                                                  
+                    # group_embeds 为空说明本 batch 的 compressor 一次都没被调用。
+                    # 与视觉编码器的 dummy image trick（第 181-191 行）同理，
+                    # 用一次 dummy forward 把 compressor 参数挂进计算图，
+                    # 避免 DDP/DeepSpeed 的 all-reduce 死锁。
+                    if getattr(self.config, "enable_lvr_token_compression", False):
+                      dummy_roi = inputs_embeds.new_zeros(1, inputs_embeds.size(-1))
+                      inputs_embeds = inputs_embeds + self.lvr_token_compressor(dummy_roi).mean() * 0
+                    # ↑↑↑ 插入结束 ↑↑↑
                 if selected_lvr_embeds.size(0) != seq_positions.numel():
                     raise ValueError(
                         f"LVR length mismatch after compression: embeds={selected_lvr_embeds.size(0)}, "

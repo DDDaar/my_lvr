@@ -45,7 +45,7 @@ def replace_lvr_tokens(input_string, lvr_token_idxs_list, latent_end_token, fixe
         else:
             for seg, idxs in zip(input_segments, lvr_token_idxs_list):
                 num_lvr = lvr_compress_tokens if lvr_compress_tokens is not None else len(idxs)
-                if latent_end_token:    # latent end token mode appends a stopping token
+                if latent_end_token is not None:    # latent end token mode appends a stopping token
                     replacement = LVR_START_TOKEN + LVR_TOKEN * num_lvr + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
                 else:
                     replacement = LVR_START_TOKEN + LVR_TOKEN * num_lvr + LVR_END_TOKEN
