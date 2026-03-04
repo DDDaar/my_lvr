@@ -273,10 +273,16 @@ OUTPUT_DIR="/home/ma-user/work/lbx/lvr-main/stage1_checkpoints_7b/"
 ###目的：启用压缩模块。
 #### 在脚本变量中新增         
 ENABLE_LVR_TOKEN_COMPRESSION=True
+LVR_COMPRESSOR_TYPE=custom
 LVR_COMPRESS_TOKENS=8
 LVR_COMPRESSOR_NUM_HEADS=8
 LVR_COMPRESSOR_NUM_LAYERS=1
 LVR_COMPRESSOR_DROPOUT=0.0
+LVR_QFORMER_HIDDEN_SIZE=768
+# Optional: set to a BLIP-2 checkpoint path/name when LVR_COMPRESSOR_TYPE=qformer.
+# Example: LVR_QFORMER_PRETRAINED_MODEL_NAME_OR_PATH="Salesforce/blip2-opt-2.7b"
+LVR_QFORMER_PRETRAINED_MODEL_NAME_OR_PATH=""
+LVR_QFORMER_FREEZE=False
 
 
 
@@ -327,8 +333,12 @@ deepspeed src/train/train_lvr.py \
     --long_seq_threshold $LST \
     --max_instance_per_batch $MAX_INSTANCE_PER_BATCH \
     --enable_lvr_token_compression $ENABLE_LVR_TOKEN_COMPRESSION \
+    --lvr_compressor_type $LVR_COMPRESSOR_TYPE \
     --lvr_compress_tokens $LVR_COMPRESS_TOKENS \
     --lvr_compressor_num_heads $LVR_COMPRESSOR_NUM_HEADS \
     --lvr_compressor_num_layers $LVR_COMPRESSOR_NUM_LAYERS \
     --lvr_compressor_dropout $LVR_COMPRESSOR_DROPOUT \
+    --lvr_qformer_hidden_size $LVR_QFORMER_HIDDEN_SIZE \
+    --lvr_qformer_pretrained_model_name_or_path "$LVR_QFORMER_PRETRAINED_MODEL_NAME_OR_PATH" \
+    --lvr_qformer_freeze $LVR_QFORMER_FREEZE \
     # save_total_limit is for local storage only, no limit for online checkpointing

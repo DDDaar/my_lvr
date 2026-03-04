@@ -134,9 +134,17 @@ def train():
     #适配token压缩
     config.enable_lvr_token_compression = model_args.enable_lvr_token_compression
     config.lvr_compress_tokens = model_args.lvr_compress_tokens
+    config.lvr_compressor_type = model_args.lvr_compressor_type
     config.lvr_compressor_num_heads = model_args.lvr_compressor_num_heads
     config.lvr_compressor_num_layers = model_args.lvr_compressor_num_layers
     config.lvr_compressor_dropout = model_args.lvr_compressor_dropout
+    config.lvr_qformer_hidden_size = model_args.lvr_qformer_hidden_size
+    config.lvr_qformer_pretrained_model_name_or_path = (
+        model_args.lvr_qformer_pretrained_model_name_or_path
+        if model_args.lvr_qformer_pretrained_model_name_or_path
+        else None
+    )
+    config.lvr_qformer_freeze = model_args.lvr_qformer_freeze
 
 
     

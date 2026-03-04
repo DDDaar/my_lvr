@@ -1,7 +1,7 @@
 """
     Implementation of LVR models based on Qwen-2.5-VL series
 """
-from src.model.lvr_token_compressor import LVRTokenCompressor
+from src.model.lvr_token_compressor import build_lvr_token_compressor
 
 import math
 import torch.nn as nn
@@ -69,21 +69,42 @@ class QwenWithLVR(Qwen2_5_VLForConditionalGeneration):
 
         if getattr(config, "enable_lvr_token_compression", False):
             self._init_lvr_token_compressor(
+                compressor_type=getattr(config, "lvr_compressor_type", "custom"),
                 num_queries=config.lvr_compress_tokens,
                 num_heads=config.lvr_compressor_num_heads,
                 num_layers=config.lvr_compressor_num_layers,
                 dropout=config.lvr_compressor_dropout,
+                qformer_hidden_size=getattr(config, "lvr_qformer_hidden_size", 768),
+                qformer_pretrained_model_name_or_path=getattr(
+                    config, "lvr_qformer_pretrained_model_name_or_path", None
+                ),
+                qformer_freeze=getattr(config, "lvr_qformer_freeze", False),
             )
 
        #3. 新增初始化函数：
 
-    def _init_lvr_token_compressor(self, num_queries=8, num_heads=8, num_layers=1, dropout=0.0):
-        # num_layers 先保留接口，v1 用 1 层；你后续可堆叠
-        self.lvr_token_compressor = LVRTokenCompressor(
+    def _init_lvr_token_compressor(
+        self,
+        compressor_type="custom",
+        num_queries=8,
+        num_heads=8,
+        num_layers=1,
+        dropout=0.0,
+        qformer_hidden_size=768,
+        qformer_pretrained_model_name_or_path=None,
+        qformer_freeze=False,
+    ):
+        # Keep the legacy behavior by default (`custom`) and only switch when explicitly requested.
+        self.lvr_token_compressor = build_lvr_token_compressor(
+            compressor_type=compressor_type,
             hidden_size=self.config.hidden_size,
             num_queries=num_queries,
             num_heads=num_heads,
+            num_layers=num_layers,
             dropout=dropout,
+            qformer_hidden_size=qformer_hidden_size,
+            qformer_pretrained_model_name_or_path=qformer_pretrained_model_name_or_path,
+            qformer_freeze=qformer_freeze,
         )
 
    
@@ -1166,4 +1187,3 @@ class QwenWithLVR(Qwen2_5_VLForConditionalGeneration):
     #     # Hash to detect whether the instance was modified
     #     generation_config._original_object_hash = hash(generation_config)
     #     return generation_config
-

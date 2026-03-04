@@ -18,9 +18,13 @@ class ModelArguments:
     ### 文件 A: src/params.py
     enable_lvr_token_compression: bool = field(default=False)
     lvr_compress_tokens: int = field(default=8)# K
+    lvr_compressor_type: str = field(default="custom")  # custom | qformer
     lvr_compressor_num_heads: int = field(default=8)
     lvr_compressor_num_layers: int = field(default=1)
     lvr_compressor_dropout: float = field(default=0.0)
+    lvr_qformer_hidden_size: int = field(default=768)
+    lvr_qformer_pretrained_model_name_or_path: Optional[str] = field(default=None)
+    lvr_qformer_freeze: bool = field(default=False)
 
   # 说明：
 
