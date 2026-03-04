@@ -31,6 +31,8 @@ class SupervisedDatasetLVR(Dataset):
         processor: transformers.ProcessorMixin,
         data_args: DataArguments,
         model_id,
+        latent_end_token=False,
+        lvr_compress_tokens=None,
         padding=True,
     ):
         super(SupervisedDatasetLVR, self).__init__()
@@ -54,6 +56,8 @@ class SupervisedDatasetLVR(Dataset):
         self.video_resized_w = data_args.video_resized_width
         self.video_resized_h = data_args.video_resized_height
         self.fps = data_args.fps
+        self.latent_end_token = latent_end_token
+        self.lvr_compress_tokens = lvr_compress_tokens
 
         '''Deprecated as image masking works better'''
         # if "Qwen" in model_id:
@@ -257,7 +261,15 @@ class SupervisedDatasetLVR(Dataset):
         # an alternative method using an image mask to do the same thing 
         # lvr_token_idxs_list = self.bbox_to_token_idxs(images,bboxes)
         ## 将原始对话格式转换为OpenAI格式，并注入token索引
-        sources = copy.deepcopy(llava_to_openai_lvr(sources['conversations'], is_video=is_video,lvr_token_idxs_list=lvr_token_idxs_list_manual))
+        sources = copy.deepcopy(
+            llava_to_openai_lvr(
+                sources['conversations'],
+                is_video=is_video,
+                lvr_token_idxs_list=lvr_token_idxs_list_manual,
+                latent_end_token=self.latent_end_token,
+                lvr_compress_tokens=self.lvr_compress_tokens,
+            )
+        )
 
         all_input_ids = [] 
         all_labels = []
@@ -503,10 +515,15 @@ class DataCollatorForSupervisedDatasetLVR(object):
 
         return data_dict
     
-def make_supervised_data_module_lvr(model_id, processor, data_args):
+def make_supervised_data_module_lvr(model_id, processor, data_args, latent_end_token=False, lvr_compress_tokens=None):
     """Make dataset and collator for supervised fine-tuning."""
     sft_dataset = SupervisedDatasetLVR(
-        data_path=data_args.data_path, processor=processor, data_args=data_args, model_id=model_id
+        data_path=data_args.data_path,
+        processor=processor,
+        data_args=data_args,
+        model_id=model_id,
+        latent_end_token=latent_end_token,
+        lvr_compress_tokens=lvr_compress_tokens,
     )
     data_collator = DataCollatorForSupervisedDatasetLVR(pad_token_id=processor.tokenizer.pad_token_id)
 

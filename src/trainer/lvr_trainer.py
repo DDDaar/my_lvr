@@ -39,6 +39,11 @@ class QwenLVRSFTTrainer(Trainer):
             self.oci_handler = oci_handler
         # 修改，下面一行放到if外面
         self.temp_folder = temp_folder     # temp_file class; "/dockerx/Local/users/bangzheng/model_name/run_name-[random]"
+        self._compression_steps = 0
+        self._compression_before_sum = 0
+        self._compression_after_sum = 0
+        self._compression_ratio_sum = 0.0
+        self._reduction_ratio_sum = 0.0
 
     def create_optimizer(self):
         """
@@ -259,5 +264,62 @@ class QwenLVRSFTTrainer(Trainer):
             "loss_mode_switch": loss_mode_switch.detach().item() if loss_mode_switch is not None else 0.0,
         })
 
+        before_cnt = getattr(outputs, "lvr_tokens_before_count", None)
+        after_cnt = getattr(outputs, "lvr_tokens_after_count", None)
+        compression_ratio = getattr(outputs, "lvr_compression_ratio", None)
+        reduction_ratio = getattr(outputs, "lvr_reduction_ratio", None)
+        if (
+            before_cnt is not None
+            and after_cnt is not None
+            and compression_ratio is not None
+            and reduction_ratio is not None
+        ):
+            self._compression_steps += 1
+            self._compression_before_sum += int(before_cnt)
+            self._compression_after_sum += int(after_cnt)
+            self._compression_ratio_sum += float(compression_ratio)
+            self._reduction_ratio_sum += float(reduction_ratio)
+
+            avg_compression_ratio = self._compression_ratio_sum / self._compression_steps
+            avg_reduction_ratio = self._reduction_ratio_sum / self._compression_steps
+            self.log({
+                "lvr_tokens_before": int(before_cnt),
+                "lvr_tokens_after": int(after_cnt),
+                "lvr_compression_ratio": float(compression_ratio),
+                "lvr_reduction_ratio": float(reduction_ratio),
+                "lvr_compression_ratio_avg": float(avg_compression_ratio),
+                "lvr_reduction_ratio_avg": float(avg_reduction_ratio),
+            })
+
 
         return (loss, outputs) if return_outputs else loss
+
+    def train(self, *args, **kwargs):
+        train_output = super().train(*args, **kwargs)
+        if self._compression_steps > 0:
+            avg_compression_ratio = self._compression_ratio_sum / self._compression_steps
+            avg_reduction_ratio = self._reduction_ratio_sum / self._compression_steps
+            total_before = self._compression_before_sum
+            total_after = self._compression_after_sum
+            global_compression_ratio = (total_after / total_before) if total_before > 0 else 1.0
+            global_reduction_ratio = 1.0 - global_compression_ratio
+
+            summary = (
+                f"[LVR Compression Summary] steps={self._compression_steps}, "
+                f"before_sum={total_before}, after_sum={total_after}, "
+                f"avg_ratio={avg_compression_ratio:.6f}, avg_reduction={avg_reduction_ratio:.6f}, "
+                f"global_ratio={global_compression_ratio:.6f}, global_reduction={global_reduction_ratio:.6f}"
+            )
+            logger.info(summary)
+            if self.is_world_process_zero():
+                print(summary)
+                self.log({
+                    "lvr_compression_ratio_avg_final": float(avg_compression_ratio),
+                    "lvr_reduction_ratio_avg_final": float(avg_reduction_ratio),
+                    "lvr_compression_ratio_global_final": float(global_compression_ratio),
+                    "lvr_reduction_ratio_global_final": float(global_reduction_ratio),
+                    "lvr_tokens_before_sum_final": int(total_before),
+                    "lvr_tokens_after_sum_final": int(total_after),
+                })
+
+        return train_output

@@ -31,7 +31,7 @@ def replace_image_tokens(input_string, is_video=False):
     return re.sub(pattern, replacement, input_string)
 
 #把lvr占位符替换为LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN（当前配置）
-def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_num_of_lvr_tokens,lvr_compress_tokens=None):
+def replace_lvr_tokens(input_string, lvr_token_idxs_list, latent_end_token, fixed_num_of_lvr_tokens, lvr_compress_tokens=None):
     '''video not implemented'''
     pattern = r'\n?' + re.escape(LVR_PLACEHOLDER) + r'\n?'
     if re.search(pattern, input_string):
@@ -43,25 +43,13 @@ def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_n
                 replacement = LVR_START_TOKEN + LVR_TOKEN*fixed_num_of_lvr_tokens + LVR_END_TOKEN
                 output_segments.append(replacement+seg)
         else:
-            #根据实际token索引列表的长度确定token数量
-            #根据latent_end_token标志决定是否添加LVR_LATENT_END_TOKEN
-            # for seg,idxs in zip(input_segments,lvr_token_idxs_list):#########################################################################
-            #     if latent_end_token is not None:    #latent end token mode will append a stopping token as the last
-            #         replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
-            #     else:
-            #         replacement = LVR_START_TOKEN + LVR_TOKEN*len(idxs) + LVR_END_TOKEN
-            #     output_segments.append(replacement+seg)
-            if lvr_compress_tokens is not None:
-                num_lvr = lvr_compress_tokens
-            else:
-                num_lvr = len(idxs)
-            
-            for seg,idxs in zip(input_segments,lvr_token_idxs_list):#########################################################################
-                if latent_end_token is not None:    #latent end token mode will append a stopping token as the last
-                    replacement = LVR_START_TOKEN + LVR_TOKEN*num_lvr + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
+            for seg, idxs in zip(input_segments, lvr_token_idxs_list):
+                num_lvr = lvr_compress_tokens if lvr_compress_tokens is not None else len(idxs)
+                if latent_end_token:    # latent end token mode appends a stopping token
+                    replacement = LVR_START_TOKEN + LVR_TOKEN * num_lvr + LVR_LATENT_END_TOKEN + LVR_END_TOKEN
                 else:
-                    replacement = LVR_START_TOKEN + LVR_TOKEN*num_lvr + LVR_END_TOKEN
-                output_segments.append(replacement+seg)
+                    replacement = LVR_START_TOKEN + LVR_TOKEN * num_lvr + LVR_END_TOKEN
+                output_segments.append(replacement + seg)
      
         return "".join(output_segments)
     else:
@@ -69,7 +57,14 @@ def replace_lvr_tokens(input_string,lvr_token_idxs_list,latent_end_token,fixed_n
 
 
 # 将LLaVA对话格式转换为OpenAI格式，并处理LVR（Latent Visual Representation）tokens的替换
-def llava_to_openai_lvr(conversations, is_video=False, lvr_token_idxs_list=None, latent_end_token=False, fixed_num_of_lvr_tokens=None):
+def llava_to_openai_lvr(
+    conversations,
+    is_video=False,
+    lvr_token_idxs_list=None,
+    latent_end_token=False,
+    fixed_num_of_lvr_tokens=None,
+    lvr_compress_tokens=None,
+):
 
     # assert lvr_token_idxs_list is not None
 
@@ -78,7 +73,13 @@ def llava_to_openai_lvr(conversations, is_video=False, lvr_token_idxs_list=None,
     transformed_data = []
     for conversation in conversations:
         transformed_content = replace_image_tokens(conversation["value"], is_video=is_video)
-        transformed_content = replace_lvr_tokens(transformed_content,lvr_token_idxs_list,latent_end_token,fixed_num_of_lvr_tokens)
+        transformed_content = replace_lvr_tokens(
+            transformed_content,
+            lvr_token_idxs_list,
+            latent_end_token,
+            fixed_num_of_lvr_tokens,
+            lvr_compress_tokens=lvr_compress_tokens,
+        )
         transformed_entry = {
             "role": role_mapping.get(conversation["from"], conversation["from"]),
             "content": transformed_content,

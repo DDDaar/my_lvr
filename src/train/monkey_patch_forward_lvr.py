@@ -90,6 +90,10 @@ class Qwen2_5_VLCausalLMOutputWithPast(ModelOutput):
     rope_deltas: Optional[torch.LongTensor] = None
     
     last_position_hidden_state: Optional[Tuple[torch.FloatTensor]] = None
+    lvr_tokens_before_count: Optional[int] = None
+    lvr_tokens_after_count: Optional[int] = None
+    lvr_compression_ratio: Optional[float] = None
+    lvr_reduction_ratio: Optional[float] = None
     # next_pos_lvr:Optional[bool] = False
 
 
@@ -186,6 +190,11 @@ def qwen2_5_mixed_modality_forward_lvr(
         # This could avoid deepspeed error when some batch only has texts.
         inputs_embeds += image_embeds.mean() * 0
             
+    lvr_tokens_before_count = None
+    lvr_tokens_after_count = None
+    lvr_compression_ratio = None
+    lvr_reduction_ratio = None
+
     if pixel_values is not None:
             
         image_embeds = self.model.get_image_features(pixel_values, image_grid_thw)
@@ -256,9 +265,12 @@ def qwen2_5_mixed_modality_forward_lvr(
                 image_token_offsets = torch.cumsum(F.pad(total_tokens, (1, 0)), dim=0)[:-1]
             
                 group_embeds = []
+                total_before = 0
+                total_after = 0
                 for b, local_ids in enumerate(lvr_tokens):
                     # local_ids: ROI local token idx, shape [Ni]
                     local_ids = local_ids.to(device=image_embeds.device, dtype=torch.long)
+                    total_before += int(local_ids.numel())
                     global_ids = local_ids + image_token_offsets[b].item()
                     roi_embeds = image_embeds[global_ids]  # [Ni, H]
             
@@ -266,8 +278,10 @@ def qwen2_5_mixed_modality_forward_lvr(
                         # [1, K, H] -> [K, H]
                         compressed = self.lvr_token_compressor(roi_embeds).squeeze(0)
                         group_embeds.append(compressed)
+                        total_after += int(compressed.size(0))
                     else:
                         group_embeds.append(roi_embeds)
+                        total_after += int(roi_embeds.size(0))
             
                 selected_lvr_embeds = torch.cat(group_embeds, dim=0)  # [L_total, H]
                 if selected_lvr_embeds.size(0) != seq_positions.numel():
@@ -277,6 +291,11 @@ def qwen2_5_mixed_modality_forward_lvr(
                     )
             
                 inputs_embeds[batch_indices, seq_positions] = selected_lvr_embeds
+                lvr_tokens_before_count = total_before
+                lvr_tokens_after_count = total_after
+                if total_before > 0:
+                    lvr_compression_ratio = float(total_after / total_before)
+                    lvr_reduction_ratio = float(1.0 - lvr_compression_ratio)
             else:
                 '''re-encode target area'''
                 # Now lvr_tokens is pixel_values of the cropped targets
@@ -381,7 +400,11 @@ def qwen2_5_mixed_modality_forward_lvr(
         hidden_states=outputs.hidden_states,
         attentions=outputs.attentions,
         rope_deltas=self.model.rope_deltas,
-        last_position_hidden_state =last_position_hidden_state
+        last_position_hidden_state=last_position_hidden_state,
+        lvr_tokens_before_count=lvr_tokens_before_count,
+        lvr_tokens_after_count=lvr_tokens_after_count,
+        lvr_compression_ratio=lvr_compression_ratio,
+        lvr_reduction_ratio=lvr_reduction_ratio,
     )
 
 

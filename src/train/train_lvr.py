@@ -229,13 +229,11 @@ def train():
     if training_args.enable_data_packing:
         training_args.per_device_train_batch_size = 1
         if model_args.max_lvr_tokens is not None:
-            data_module, total_data_len = make_packed_supervised_data_module_lvr_fixedToken(model_id=model_args.model_id,
-                                                                                            processor=processor,
-                                                                                            max_lvr_tokens=model_args.max_lvr_tokens,
-                                                                                            data_args=data_args,
-                                                                                            training_args=training_args,
-                                                                                            latent_end_token=model_args.latent_end_token,
-                                                                                            lvr_compress_tokens=model_args.lvr_compress_tokens if model_args.enable_lvr_token_compression else None)        
+            raise NotImplementedError(
+                "max_lvr_tokens mode requires make_packed_supervised_data_module_lvr_fixedToken, "
+                "but this function is not available in current codebase. "
+                "Set --max_lvr_tokens None to continue."
+            )
         else:
             data_module, total_data_len = make_packed_supervised_data_module_lvr(model_id=model_args.model_id,
                                                                                 processor=processor,
@@ -254,7 +252,8 @@ def train():
         data_module = make_supervised_data_module_lvr(model_id=model_args.model_id,
                                               processor=processor,
                                               data_args=data_args,
-                                              latent_end_token=model_args.latent_end_token)
+                                              latent_end_token=model_args.latent_end_token,
+                                              lvr_compress_tokens=model_args.lvr_compress_tokens if model_args.enable_lvr_token_compression else None)
     
     # tempFolder = temp_file class; "/dockerx/Local/users/bangzheng/model_name/run_name-[random]"
     # 训练、保存
